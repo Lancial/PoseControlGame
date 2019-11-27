@@ -55,40 +55,40 @@
   <ItemGroup>
      <Compile Include="Assets\Standard Assets\Editor\KinectCopyPluginDataHelper.cs" />
  <Reference Include="UnityEditor.TestRunner">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a6/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -280,7 +280,7 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a6/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>C:/NguyenDuong/Programming/Repo/Kinect455/Kinect4Win/KinectForWindow/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a6/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
