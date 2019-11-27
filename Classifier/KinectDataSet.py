@@ -23,6 +23,7 @@ class KinectDataSet(Dataset):
         pose_class = os.path.join(self.root_dir,
                                   self.skeleton_data.iloc[idx, 0])
         joints_set = self.skeleton_data.iloc[idx, 1:]
+        joints_set = joints_set.astype('float')
         sample = {'pose': pose_class, 'joints': joints_set}
 
         if self.transform:
