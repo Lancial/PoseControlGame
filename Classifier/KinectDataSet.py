@@ -16,6 +16,11 @@ class KinectDataSet(Dataset):
     def __len__(self):
         return len(self.skeleton_data)
 
+    def numeric_label(label):
+        label_dict = {'STAND': 0, 'RUN': 1, 'JUMP_UP': 2, 'JUMP_LEFT': 3,
+                      'JUMP_RIGHT': 4, 'STAND_ATTACK': 5, 'ATTACK': 6}
+        return label_dict.get(label, -1)
+
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
             idx = idx.tolist()
@@ -24,7 +29,8 @@ class KinectDataSet(Dataset):
                                   self.skeleton_data.iloc[idx, 0])
         joints_set = self.skeleton_data.iloc[idx, 1:]
         joints_set = joints_set.astype('float')
-        sample = {'pose': pose_class, 'joints': joints_set}
+        sample = {'pose': torch.from_numpy(
+            pose_class), 'joints': torch.from_munpy(joints_set)}
 
         if self.transform:
             sample = self.transform(sample)

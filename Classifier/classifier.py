@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from net import Net
+from KinectDataSet import KinectDataSet
 
 
 # train = datasets.MNIST('', train=True, download=True,
@@ -18,6 +19,10 @@ from net import Net
 
 # load training and testing data set
 
+train = KinectDataSet(csv_file='./../Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/bodydata.csv',
+                      root_dir='./../Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/')
+trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
+
 net = Net()
 
 loss_function = nn.CrossEntropyLoss()
@@ -27,7 +32,7 @@ for epoch in range(3):
     for data in trainset:
         X, y = data
         net.zero_grad()  # don't really understand this part
-        output = net(X.view(-1, 784))  # flat the data
+        output = net(X.view(-1, 75))  # flat the data
         loss = F.nll_loss(output, y)
         loss.backward()
         optimizer.step()
@@ -37,7 +42,7 @@ correct = 0
 total = 0
 
 with torch.no_grad():
-    for data in testset:
+    for data in trainset:
         X, y = data
         output = net(X.view(-1, 784))
         for idx, i in enumerate(output):
