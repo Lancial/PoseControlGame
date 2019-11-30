@@ -12,13 +12,15 @@ public class DataManager : MonoBehaviour
     private Dictionary<string, List<float[]>> dicData;
     public InputField inputField;
     public Button CollectSinglebutton;
-    public GameObject body;
+    //public GameObject body;
+    public BodySourceView bsv;
 
     public Text display;
     public const string FILE_NAME = "bodydata.csv";
 
     void Start()
     {
+        bsv = GameObject.Find("BodyView").GetComponent<BodySourceView>();
         dicData = new Dictionary<string, List<float[]>>();
         CollectSinglebutton.onClick.AddListener(() =>
         {
@@ -41,47 +43,54 @@ public class DataManager : MonoBehaviour
 
     public void OnClickCollectSingleData()
     {
-        if(body == null)
+        foreach (KeyValuePair<ulong, GameObject> entry in bsv.getBodies())
         {
-            Debug.LogError("No body found");
-            return;
-        }
+            GameObject body = entry.Value;
 
-        float[] data = new float[25 * 3];
-        string label = inputField.text;
+            if (body == null)
+            {
+                Debug.LogError("No body found");
+                return;
+            }
 
-        if(label.Equals(string.Empty))
-        {
-            Debug.LogError("label cant be empty");
-            return;
-        }
-        List<float[]> list = null;
-        if (!dicData.ContainsKey(label))
-        {
-            list = new List<float[]>();
-            dicData.Add(inputField.text, list);
-        } else
-        {
-            list = dicData[label];
+            float[] data = new float[25 * 3];
+            string label = inputField.text;
+
+            if (label.Equals(string.Empty))
+            {
+                Debug.LogError("label cant be empty");
+                return;
+            }
+            List<float[]> list = null;
+            if (!dicData.ContainsKey(label))
+            {
+                list = new List<float[]>();
+                dicData.Add(inputField.text, list);
+            }
+            else
+            {
+                list = dicData[label];
+            }
+
+            FillInData(data, body);
+
+            list.Add(data);
+
+
+            StringBuilder val = new StringBuilder();
+            val.Append(label + ",");
+            val.Append(data[0]);
+            for (int i = 0; i < data.Length; i++)
+            {
+                val.Append("," + data[i]);
+            }
+            val.Append("\n");
+            string result = val.ToString();
+
+            Debug.Log(string.Format("Data collected: {0}", result));
+            WriteDataToCSVFile(Application.streamingAssetsPath + "/" + FILE_NAME, result);
         }
         
-        FillInData(data, body);
-
-        list.Add(data);
-
-        
-        StringBuilder val = new StringBuilder();
-        val.Append(label + ",");
-        val.Append(data[0]);
-        for (int i = 0; i < data.Length; i++)
-        {
-            val.Append("," +data[i]);
-        }
-        val.Append("\n");
-        string result = val.ToString();
-
-        Debug.Log(string.Format("Data collected: {0}", result));
-        WriteDataToCSVFile(Application.streamingAssetsPath + "/" + FILE_NAME, result);
     }
 
     private void FillInData(float[] data, GameObject body)

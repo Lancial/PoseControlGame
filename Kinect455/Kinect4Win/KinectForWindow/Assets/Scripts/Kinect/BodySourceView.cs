@@ -182,4 +182,8 @@ public class BodySourceView : MonoBehaviour
     }
 
 
+    public Dictionary<ulong, GameObject> getBodies()
+    {
+        return _Bodies;
+    }
 }
