@@ -13,8 +13,8 @@ class Net(nn.Module):
         self.fc_layer4 = nn.Linear(64, 10)
 
     def forward(self, x):
-        x = F.relu(self.fc_layer1(x))
-        x = F.relu(self.fc_layer2(x))
-        x = F.relu(self.fc_layer3(x))
+        x = F.sigmoid(self.fc_layer1(x))
+        x = F.sigmoid(self.fc_layer2(x))
+        x = F.sigmoid(self.fc_layer3(x))
         x = self.fc_layer4(x)
         return F.log_softmax(x, dim=1)
