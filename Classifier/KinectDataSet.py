@@ -25,12 +25,14 @@ class KinectDataSet(Dataset):
         if torch.is_tensor(idx):
             idx = idx.tolist()
 
-        pose_class = os.path.join(self.root_dir,
-                                  self.skeleton_data.iloc[idx, 0])
+        pose_class = self.skeleton_data.iloc[idx, 0]
+        pose_label = numeric_label(pose_class)
+        pose_label = np.array([pose_label]) # same with np.ndarray, convert a pandas series to np array
         joints_set = self.skeleton_data.iloc[idx, 1:]
+        joints_set = np.array([joints_set])
         joints_set = joints_set.astype('float')
-        sample = {'pose': torch.from_numpy(
-            pose_class), 'joints': torch.from_munpy(joints_set)}
+        sample = {'pose': torch.Tensor(
+            pose_label), 'joints': torch.Tensor(joints_set)} # convert ndarrays to pytorch tensor(float)
 
         if self.transform:
             sample = self.transform(sample)

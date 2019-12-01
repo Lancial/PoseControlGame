@@ -26,14 +26,14 @@ trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
 net = Net()
 
 loss_function = nn.CrossEntropyLoss()
-optimizer = optim.Adam(net.parameters(), lr=10e-4)
+optimizer = optim.Adam(net.parameters(), lr=10e-4) # adam or SGD? what are they
 
 for epoch in range(3):
     for data in trainset:
         X, y = data
-        net.zero_grad()  # don't really understand this part
+        optimizer.zero_grad()  # don't really understand this part, before is net.zero_grad()
         output = net(X.view(-1, 75))  # flat the data
-        loss = F.nll_loss(output, y)
+        loss = loss_function(output, y) # use CrossEntropyLoss
         loss.backward()
         optimizer.step()
     print(loss)
