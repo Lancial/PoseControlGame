@@ -4,8 +4,10 @@ from torchvision import transforms, datasets
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from pathlib import Path
 from net import Net
 from KinectDataSet import KinectDataSet
+
 
 
 # train = datasets.MNIST('', train=True, download=True,
@@ -18,9 +20,13 @@ from KinectDataSet import KinectDataSet
 # testset = torch.utils.data.DataLoader(test, batch_size=10, shuffle=False)
 
 # load training and testing data set
+csv_directory = Path("../Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/")
+if not csv_directory.exists():
+    csv_directory = Path("Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/")
+csv_path = csv_directory / "bodydata.csv"
 
-train = KinectDataSet(csv_file='./../Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/bodydata.csv',
-                      root_dir='./../Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/')
+train = KinectDataSet(csv_file=csv_path,
+                      root_dir=csv_directory)
 trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
 
 net = Net()
