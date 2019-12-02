@@ -4,7 +4,10 @@ import pandas as pd
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
-
+label_dict = {'STAND': 0, 'RUN': 1, 'JUMP_UP': 2, 'JUMP_LEFT': 3,
+                      'JUMP_RIGHT': 4, 'STAND_ATTACK': 5, 'ATTACK': 6}
+def numeric_label(label):
+    return label_dict.get(label, -1)
 
 class KinectDataSet(Dataset):
 
@@ -16,10 +19,7 @@ class KinectDataSet(Dataset):
     def __len__(self):
         return len(self.skeleton_data)
 
-    def numeric_label(label):
-        label_dict = {'STAND': 0, 'RUN': 1, 'JUMP_UP': 2, 'JUMP_LEFT': 3,
-                      'JUMP_RIGHT': 4, 'STAND_ATTACK': 5, 'ATTACK': 6}
-        return label_dict.get(label, -1)
+
 
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
@@ -31,8 +31,8 @@ class KinectDataSet(Dataset):
         joints_set = self.skeleton_data.iloc[idx, 1:]
         joints_set = np.array([joints_set])
         joints_set = joints_set.astype('float')
-        sample = {'pose': torch.Tensor(
-            pose_label), 'joints': torch.Tensor(joints_set)} # convert ndarrays to pytorch tensor(float)
+        sample = torch.Tensor(
+            pose_label), torch.Tensor(joints_set)# convert ndarrays to pytorch tensor(float)
 
         if self.transform:
             sample = self.transform(sample)
