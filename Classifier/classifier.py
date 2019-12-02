@@ -24,7 +24,6 @@ csv_directory = Path("../Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAs
 if not csv_directory.exists():
     csv_directory = Path("Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/")
 csv_path = csv_directory / "bodydata.csv"
-
 train = KinectDataSet(csv_file=csv_path,
                       root_dir=csv_directory)
 trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
