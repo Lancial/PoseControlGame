@@ -31,7 +31,7 @@ class KinectDataSet(Dataset):
         joints_set = self.skeleton_data.iloc[idx, 1:]
         joints_set = np.array([joints_set])
         joints_set = joints_set.astype('float')
-        sample = {'poss_label':torch.Tensor(
+        sample = {'pose_label':torch.Tensor(
             pose_label), 'skeleton_data':torch.Tensor(joints_set)}# convert ndarrays to pytorch tensor(float)
 
         if self.transform:

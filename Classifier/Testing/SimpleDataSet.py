@@ -31,7 +31,7 @@ class SimpleDataSet(Dataset):
         joints_set = self.skeleton_data.iloc[idx, 1:]
         joints_set = np.array([joints_set])
         joints_set = joints_set.astype('float')
-        sample = {'poss_label':
+        sample = {'pose_label':
             pose_label, 'skeleton_data':joints_set}# convert ndarrays to pytorch tensor(float)
 
         if self.transform:
