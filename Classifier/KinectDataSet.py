@@ -5,36 +5,31 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
 label_dict = {'STAND': 0, 'RUN': 1, 'JUMP_UP': 2, 'JUMP_LEFT': 3,
-                      'JUMP_RIGHT': 4, 'STAND_ATTACK': 5, 'ATTACK': 6}
+              'JUMP_RIGHT': 4, 'STAND_ATTACK': 5, 'ATTACK': 6}
+
+
 def numeric_label(label):
     return label_dict.get(label, -1)
+
 
 class KinectDataSet(Dataset):
 
     def __init__(self, csv_file, root_dir, transform=None):
-        self.skeleton_data = pd.read_csv(csv_file)
-        self.root_dir = root_dir
+        self.skeleton_data = pd.read_csv(csv_file, header=None)
+        # the first column contains label
+        self.pose_array = self.skeleton_data.iloc[:, 0]
+        self.num_label = np.asarray(self.pose_array)
+        self.joints_set = np.asarray(self.skeleton_data.iloc[:, 1:])
         self.transform = transform
 
     def __len__(self):
         return len(self.skeleton_data)
 
-
-
     def __getitem__(self, idx):
-        if torch.is_tensor(idx):
-            idx = idx.tolist()
 
-        pose_class = self.skeleton_data.iloc[idx, 0]
-        pose_label = numeric_label(pose_class)
-        pose_label = np.array([pose_label]) # same with np.ndarray, convert a pandas series to np array
-        joints_set = self.skeleton_data.iloc[idx, 1:]
-        joints_set = np.array([joints_set])
-        joints_set = joints_set.astype('float')
-        sample = {'pose_label':torch.Tensor(
-            pose_label), 'skeleton_data':torch.Tensor(joints_set)}# convert ndarrays to pytorch tensor(float)
-
-        if self.transform:
-            sample = self.transform(sample)
+        # pose_label = numeric_label(self.pose_array)
+        joints_set = self.joints_set.astype('float')
+        sample = (torch.from_numpy(joints_set).float(),
+                  torch.from_numpy(self.num_label))
 
         return sample
