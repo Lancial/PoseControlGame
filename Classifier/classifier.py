@@ -30,7 +30,7 @@ optimizer = optim.Adam(net.parameters(), lr=10e-4) # adam or SGD? what are they
 
 for epoch in range(3):
     for data in trainset:
-        X, y = data
+        X, y = data['skeleton_data'], data['poss_label']
         optimizer.zero_grad()  # don't really understand this part, before is net.zero_grad()
         output = net(X.view(-1, 75))  # flat the data
         loss = loss_function(output, y) # use CrossEntropyLoss
