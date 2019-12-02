@@ -9,32 +9,33 @@ from SimpleDataSet import SimpleDataSet
 from simplenet import SimpleNet
 from torch.autograd import Variable
 
+transformations = transforms.Compose([transforms.ToTensor()])
 csv_directory = path.dirname(path.realpath(__file__))
 csv_path = path.join(csv_directory, 'skeleton_experiment.csv')
 
 # train = SimpleDataSet(csv_file=csv_path, root_dir=csv_path,
 #                       transform=transforms.Compose([transforms.ToTensor()]))
 train = SimpleDataSet(csv_file=csv_path, root_dir=csv_path,
-                      transform=None)
+                      transform=transformations)
 trainset = torch.utils.data.DataLoader(train, batch_size=3, shuffle=True)
 
 net = SimpleNet()
 
-loss_function = nn.CrossEntropyLoss()
+loss_function = nn.MSELoss()
 # adam or SGD? what are they
 optimizer = optim.Adam(net.parameters(), lr=10e-4)
 
-# for epoch in range(3):
-#     for data in trainset:
-#         X, y = data
-#         optimizer.zero_grad()  # don't really understand this part, before is net.zero_grad()
-#         print(X)
-#         print(y)
-#         output = net(X.view(-1, 9))  # flat the data
-#         loss = loss_function(output, y)  # use CrossEntropyLoss
-#         loss.backward()
-#         optimizer.step()
-#     print(loss)
+for epoch in range(3):
+    for data in trainset:
+        X, y = data
+        optimizer.zero_grad()  # don't really understand this part, before is net.zero_grad()
+        print(X)
+        print(y)
+        output = net(X.view(-1, 9))  # flat the data
+        loss = loss_function(output, y)  # use CrossEntropyLoss
+        loss.backward()
+        optimizer.step()
+    print(loss)
 
 # for i, (images, labels) in enumerate(trainset):
 #     images = Variable(images)
