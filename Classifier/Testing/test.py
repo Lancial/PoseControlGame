@@ -13,3 +13,9 @@ csv_path = path.join(csv_directory, 'skeleton_experiment.csv')
 
 train = SimpleDataSet(csv_file=csv_path, root_dir=csv_path)
 trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
+
+
+for data in trainset:
+    X, y = data['skeleton_data'], data['poss_label']
+    print(X)
+    print(y)
