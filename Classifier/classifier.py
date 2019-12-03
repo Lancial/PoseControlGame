@@ -7,6 +7,7 @@ import torch.optim as optim
 from pathlib import Path
 from net import Net
 from KinectDataSet import KinectDataSet
+from os import path
 
 
 # train = datasets.MNIST('', train=True, download=True,
@@ -35,7 +36,7 @@ loss_function = nn.CrossEntropyLoss()
 # adam or SGD? what are they
 optimizer = optim.SGD(net.parameters(), lr=10e-3)
 
-for epoch in range(200):
+for epoch in range(50):
     for data in trainset:
         X, y = data
         optimizer.zero_grad()  # don't really understand this part, before is net.zero_grad()
@@ -60,3 +61,7 @@ with torch.no_grad():
             total += 1
 
 print("Accuracy: ", round(correct/total, 3))
+
+# save model to disk
+model_path = path.join(path.dirname(path.realpath(__file__)), 'model.pth')
+torch.save(net.state_dict(), model_path)
