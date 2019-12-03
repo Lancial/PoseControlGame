@@ -6,6 +6,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using GameAction;
 
 public class DataManager : MonoBehaviour
 {
@@ -16,12 +17,16 @@ public class DataManager : MonoBehaviour
     public BodySourceView bsv;
 
     public Text display;
-    public const string FILE_NAME = "bodydata.csv";
+    // bodydata.csv
+    public const string FILE_NAME = "bodydata2.csv";
 
     void Start()
     {
         bsv = GameObject.Find("BodyView").GetComponent<BodySourceView>();
         dicData = new Dictionary<string, List<float[]>>();
+        // GameAction.GameAction
+        InitDic();
+
         CollectSinglebutton.onClick.AddListener(() =>
         {
             OnClickCollectSingleData();
@@ -73,22 +78,9 @@ public class DataManager : MonoBehaviour
             }
 
             FillInData(data, body);
-
             list.Add(data);
 
-
-            StringBuilder val = new StringBuilder();
-            val.Append(label + ",");
-            val.Append(data[0]);
-            for (int i = 0; i < data.Length; i++)
-            {
-                val.Append("," + data[i]);
-            }
-            val.Append("\n");
-            string result = val.ToString();
-
-            Debug.Log(string.Format("Data collected: {0}", result));
-            WriteDataToCSVFile(Application.streamingAssetsPath + "/" + FILE_NAME, result);
+            //WriteDataToCSVFile(Application.streamingAssetsPath + "/" + FILE_NAME, result);
         }
         
     }
@@ -105,13 +97,53 @@ public class DataManager : MonoBehaviour
             index += 3;
         }
     }
+    private void InitDic()
+    {
+        foreach (int action in Enum.GetValues(typeof(GameAction.GameAction)))
+        {
+            List<float[]> newList = new List<float[]>();
+            //Debug.Log(action);
+            dicData.Add(action + "", newList);
+        }
+    }
 
-    public void WriteDataToCSVFile(string filePath, string data)
+    public void OnDestroy()
+    {
+        Debug.Log("close");
+        SaveData();
+    }
+    public void SaveData()
+    {
+        WriteDataToCSVFile(Application.streamingAssetsPath + "/" + FILE_NAME);
+        dicData.Clear();
+    }
+
+    private void WriteDataToCSVFile(string filePath)
     {
         if(!File.Exists(filePath))
         {
             File.Create(filePath).Dispose();
         }
-        File.AppendAllText(filePath, data);
+        StringBuilder val = new StringBuilder();
+        foreach (var item in dicData)
+        {
+            string label = item.Key;
+            List<float[]> list = item.Value;
+            foreach(var data in list)
+            {
+                val.Append(label + ",");
+                val.Append(data[0]);
+                for (int i = 1; i < data.Length; i++)
+                {
+                    val.Append("," + data[i]);
+                }
+                val.Append("\n");
+            }
+        }
+
+        string result = val.ToString();
+        Debug.Log(string.Format("Data collected: {0}", result));
+        File.AppendAllText(filePath, result);
+        
     }
 }
