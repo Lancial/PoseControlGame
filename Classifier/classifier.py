@@ -24,23 +24,24 @@ csv_directory = Path(
 if not csv_directory.exists():
     csv_directory = Path(
         "Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/")
-csv_path = csv_directory / "numdata.csv"
+csv_path = csv_directory / "numdata_fixed.csv"
 train = KinectDataSet(csv_file=csv_path,
                       root_dir=csv_directory)
-trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
+trainset = torch.utils.data.DataLoader(train, batch_size=7, shuffle=True)
 
 net = Net()
 
 loss_function = nn.CrossEntropyLoss()
 # adam or SGD? what are they
-optimizer = optim.Adam(net.parameters(), lr=10e-4)
+optimizer = optim.SGD(net.parameters(), lr=10e-3)
 
-for epoch in range(3):
+for epoch in range(200):
     for data in trainset:
         X, y = data
         optimizer.zero_grad()  # don't really understand this part, before is net.zero_grad()
-        output = net(X.view(-1, 75))  # flat the data
-        loss = loss_function(output, y)  # use CrossEntropyLoss
+        # output = net(X.view(-1, 75))  # flat the data
+        output = net(X)
+        loss = loss_function(output, y.long())  # use CrossEntropyLoss
         loss.backward()
         optimizer.step()
     print(loss)
@@ -51,7 +52,8 @@ total = 0
 with torch.no_grad():
     for data in trainset:
         X, y = data
-        output = net(X.view(-1, 784))
+        # output = net(X.view(-1, 784))
+        output = net(X)
         for idx, i in enumerate(output):
             if torch.argmax(i) == y[idx]:
                 correct += 1

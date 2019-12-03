@@ -17,19 +17,22 @@ class KinectDataSet(Dataset):
     def __init__(self, csv_file, root_dir, transform=None):
         self.skeleton_data = pd.read_csv(csv_file, header=None)
         # the first column contains label
-        self.pose_array = self.skeleton_data.iloc[:, 0]
-        self.num_label = np.asarray(self.pose_array)
-        self.joints_set = np.asarray(self.skeleton_data.iloc[:, 1:])
+
+        self.num_label = np.asarray(self.skeleton_data.iloc[:, 0])
         self.transform = transform
 
     def __len__(self):
-        return len(self.skeleton_data)
+        return len(self.skeleton_data.index)
 
     def __getitem__(self, idx):
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
 
+        single_label = self.num_label[idx]
         # pose_label = numeric_label(self.pose_array)
-        joints_set = self.joints_set.astype('float')
+        joints_set = np.asarray(
+            self.skeleton_data.iloc[idx][1:].astype('float'))
         sample = (torch.from_numpy(joints_set).float(),
-                  torch.from_numpy(self.num_label))
+                  single_label)
 
         return sample
