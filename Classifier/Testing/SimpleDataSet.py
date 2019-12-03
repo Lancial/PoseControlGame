@@ -4,8 +4,6 @@ import pandas as pd
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
-label_dict = {'STAND': 0, 'RUN': 1, 'JUMP_UP': 2, 'JUMP_LEFT': 3,
-              'JUMP_RIGHT': 4, 'STAND_ATTACK': 5, 'ATTACK': 6}
 
 
 def numeric_label(label):
