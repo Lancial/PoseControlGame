@@ -9,16 +9,6 @@ from net import Net
 from KinectDataSet import KinectDataSet
 from os import path
 
-
-# train = datasets.MNIST('', train=True, download=True,
-#                        transform=transforms.Compose([transforms.ToTensor()]))
-
-# test = datasets.MNIST('', train=False, download=True,
-#                       transform=transforms.Compose([transforms.ToTensor()]))
-
-# trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
-# testset = torch.utils.data.DataLoader(test, batch_size=10, shuffle=False)
-
 # load training and testing data set
 csv_directory = Path(
     "../Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/")
