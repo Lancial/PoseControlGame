@@ -9,6 +9,12 @@ from torchvision import transforms, utils
 def numeric_label(label):
     return label_dict.get(label, -1)
 
+def normalize(v):
+    norm = np.linalg.norm(v)
+    if norm == 0: 
+       return v
+    return v / norm
+
 
 class KinectDataSet(Dataset):
 
@@ -30,6 +36,7 @@ class KinectDataSet(Dataset):
         # pose_label = numeric_label(self.pose_array)
         joints_set = np.asarray(
             self.skeleton_data.iloc[idx][1:].astype('float'))
+        # joints_set = normalize(joints)
         sample = (torch.from_numpy(joints_set).float(),
                   single_label)
 
