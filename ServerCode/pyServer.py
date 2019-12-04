@@ -40,22 +40,25 @@ def check_format(skeleton):
 def get_inference(skeleton):
     start_time = time.time()
     data = skeleton  # need some processing maybe
-    output = model(data)
+    output = model(torch.FloatTensor(data))
     prediction = torch.argmax(output)
     start_time = time.time()
     elapsed_time = time.time() - start_time
-    return prediction, elapsed_time
+    print(type(prediction))
+    print(prediction)
+    return prediction.item(), elapsed_time
 
 # return a json str, pose ranges from 0 - 6
 # refer to label dict for pose classes
 @app.route('/get_inference', methods=['POST'])
 def getPose():
-    skeleton = json.loads(request.get_json)[
-        'joint_set']  # change this name later
+    # skeleton = json.loads(request.get_json).joint_set  # change this name later
+    data = request.get_json(force=True)
+    skeleton = data["joint_set"]
     if check_format(skeleton):
         # here call our neural net
         prediction, time = get_inference(skeleton)  # also need processing
-        print('Pose predicted: ' + label_dict[prediction] + ' took ' + time)
+        print('Pose predicted: ' + str(label_dict[prediction]) + ' took ' + str(time))
         return jsonify({"pose": -1}), 201  # a place holder for now
     else:
         # return "not a pose" if data format is wrong
