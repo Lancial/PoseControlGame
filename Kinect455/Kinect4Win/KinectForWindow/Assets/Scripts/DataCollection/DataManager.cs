@@ -18,7 +18,7 @@ public class DataManager : MonoBehaviour
 
     public Text display;
     // bodydata.csv
-    public const string FILE_NAME = "bodydata_test.csv";
+    public const string FILE_NAME = "bodydata_train1.csv";
 
     void Start()
     {
@@ -88,18 +88,21 @@ public class DataManager : MonoBehaviour
     private void FillInData(float[] data, GameObject body)
     {
         int index = 0;
+        Transform baseJoint = null;
         foreach(Transform transform in body.transform)
         {
+            if (baseJoint == null) baseJoint = transform;
             Vector3 position = transform.localPosition;
-            data[index] = position.x;
-            data[index+1] = position.y;
-            data[index+2] = position.z;
+            Vector3 basePos = baseJoint.localPosition;
+            data[index] = position.x - basePos.x;
+            data[index+1] = position.y - basePos.y;
+            data[index+2] = position.z - basePos.z;
             index += 3;
         }
     }
     private void InitDic()
     {
-        foreach (int action in Enum.GetValues(typeof(GameAction.GameAction)))
+        foreach (int action in Enum.GetValues(typeof(GameAction.Action)))
         {
             List<float[]> newList = new List<float[]>();
             //Debug.Log(action);

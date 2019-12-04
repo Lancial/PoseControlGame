@@ -7,7 +7,7 @@ namespace GameAction {
     {
 
     }
-    public enum GameAction : int
+    public enum Action : int
     {
         STAND = 0,
         RUN = 1,
