@@ -15,8 +15,8 @@ csv_directory = Path(
 if not csv_directory.exists():
     csv_directory = Path(
         "Kinect455/Kinect4Win/KinectForWindow/Assets/StreamingAssets/")
-train_csv_path = csv_directory / "numdata_fixed.csv"
-test_csv_path = csv_directory / "bodydata_test.csv"
+train_csv_path = csv_directory / "bodydata_train1.csv"
+test_csv_path = csv_directory / "bodydata_test1.csv"
 
 train = KinectDataSet(csv_file=train_csv_path,
                       root_dir=csv_directory)
@@ -30,9 +30,9 @@ net = Net()
 
 loss_function = nn.CrossEntropyLoss()
 # adam or SGD? what are they
-optimizer = optim.SGD(net.parameters(), lr=10e-3, momentum=0.9)
+optimizer = optim.SGD(net.parameters(), lr=10e-4)
 
-for epoch in range(50):
+for epoch in range(100):
     for data in trainset:
         X, y = data
         optimizer.zero_grad()  # don't really understand this part, before is net.zero_grad()
@@ -71,6 +71,6 @@ with torch.no_grad():
             total += 1
 
 print("testing accuracy: ", round(correct/total, 3))
-# save model to disk
+#save model to disk
 model_path = path.join(path.dirname(path.realpath(__file__)), 'model.pth')
-# torch.save(net.state_dict(), model_path)
+torch.save(net.state_dict(), model_path)
