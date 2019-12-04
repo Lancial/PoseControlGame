@@ -18,7 +18,7 @@ public class DataManager : MonoBehaviour
 
     public Text display;
     // bodydata.csv
-    public const string FILE_NAME = "bodydata2.csv";
+    public const string FILE_NAME = "bodydata_test.csv";
 
     void Start()
     {
