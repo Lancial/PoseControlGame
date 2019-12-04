@@ -4,18 +4,21 @@ import torch
 import time
 from flask import Flask, jsonify, request
 from os import path
+import sys
 
+sys.path.insert(0, "../Classifier/")
 path_directory = path.join(path.dirname(
     path.realpath(__file__)), './../Classifier')
 
-from path.join(path_directory, '/net') import Net
+from net import Net
+# from path.join(path_directory, '/net') import Net
 
 app = Flask(__name__)
 
 
 # initialize the model
-PATH = path.join(path_directory, '/model.pth')
-model = Net(*args, **kwargs)
+PATH = path.join(path_directory, 'model.pth')
+model = Net()
 model.load_state_dict(torch.load(PATH))
 model.eval()
 
@@ -45,7 +48,7 @@ def get_inference(skeleton):
 
 # return a json str, pose ranges from 0 - 6
 # refer to label dict for pose classes
-@app.route('/get_inference', methods='POST')
+@app.route('/get_inference', methods=['POST'])
 def getPose():
     skeleton = json.loads(request.get_json)[
         'joint_set']  # change this name later

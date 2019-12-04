@@ -85,7 +85,7 @@ public class DataManager : MonoBehaviour
         
     }
 
-    private void FillInData(float[] data, GameObject body)
+    public void FillInData(float[] data, GameObject body)
     {
         int index = 0;
         Transform baseJoint = null;
@@ -100,6 +100,7 @@ public class DataManager : MonoBehaviour
             index += 3;
         }
     }
+
     private void InitDic()
     {
         foreach (int action in Enum.GetValues(typeof(GameAction.Action)))
