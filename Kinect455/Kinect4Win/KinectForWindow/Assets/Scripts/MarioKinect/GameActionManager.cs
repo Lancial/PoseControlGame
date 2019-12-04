@@ -16,6 +16,15 @@ public class GameActionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(gameAction == Action.STAND)
+        {
+
+        } else if(gameAction == Action.RUN)
+        {
+
+        } else if(gameAction == Action.JUMP_LEFT)
+        {
+
+        }
     }
 }
