@@ -23,8 +23,8 @@ train = KinectDataSet(csv_file=train_csv_path,
 test = KinectDataSet(csv_file=test_csv_path,
                      root_dir=csv_directory)
 
-trainset = torch.utils.data.DataLoader(train, batch_size=7, shuffle=True)
-testset = torch.utils.data.DataLoader(test, batch_size=7, shuffle=True)
+trainset = torch.utils.data.DataLoader(train, batch_size=9, shuffle=True)
+testset = torch.utils.data.DataLoader(test, batch_size=9, shuffle=True)
 
 net = Net()
 
