@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameAction {
-    public class KinectAction
-    {
 
-    }
-    public enum Action : int
+    public enum KinectAction : int
     {
+        UNDEFINED = -1,
         STAND = 0,
         RUN = 1,
         JUMP_UP = 2,

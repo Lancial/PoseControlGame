@@ -59,7 +59,7 @@ def getPose():
         # here call our neural net
         prediction, time = get_inference(skeleton)  # also need processing
         print('Pose predicted: ' + str(label_dict[prediction]) + ' took ' + str(time))
-        return jsonify({"pose": -1}), 201  # a place holder for now
+        return jsonify({"pose": prediction}), 201  # a place holder for now
     else:
         # return "not a pose" if data format is wrong
         print('Pose predicted: not a pose')

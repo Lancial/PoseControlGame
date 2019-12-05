@@ -103,7 +103,7 @@ public class DataManager : MonoBehaviour
 
     private void InitDic()
     {
-        foreach (int action in Enum.GetValues(typeof(GameAction.Action)))
+        foreach (int action in Enum.GetValues(typeof(GameAction.KinectAction)))
         {
             List<float[]> newList = new List<float[]>();
             //Debug.Log(action);
@@ -113,7 +113,7 @@ public class DataManager : MonoBehaviour
 
     public void OnDestroy()
     {
-        Debug.Log("close");
+        //Debug.Log("close");
         SaveData();
     }
     public void SaveData()
