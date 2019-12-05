@@ -15,10 +15,12 @@ public class GameActionManager : MonoBehaviour
     
     public static string URL = "http://localhost:5000/get_inference";
     public const int FRAME_PER_SECOND = 10;
-
+    
     private Rigidbody playerRB;
     private bool isStreaming;
     private IEnumerator stream;
+
+/// /////////////////////////////////
 
     private Dictionary<float, KinectAction> actionDic = new Dictionary<float, KinectAction>() {
         {-1, KinectAction.UNDEFINED },
@@ -141,6 +143,8 @@ public class GameActionManager : MonoBehaviour
         gameAction = actionDic[pose.pose];
         Debug.Log(pose.pose);
     }
+
+    /// /////////////////////////
 
 
     bool isJump;
