@@ -8,13 +8,15 @@ namespace GameAction {
     {
         UNDEFINED = -1,
         STAND = 0,
-        RUN = 1,
+        RUN_RIGHT = 1,
         JUMP_UP = 2,
         JUMP_LEFT = 3,
         JUMP_RIGHT = 4,
         STAND_ATTACK = 5,
-        ATTACK = 6
-
+        ATTACK_RIGHT = 6,
+        ATTACK_LEFT = 7,
+        RUN_LEFT = 8
+        
     }
 }
 

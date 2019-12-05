@@ -25,12 +25,14 @@ public class GameActionManager : MonoBehaviour
     private Dictionary<float, KinectAction> actionDic = new Dictionary<float, KinectAction>() {
         {-1, KinectAction.UNDEFINED },
         {0, KinectAction.STAND },
-        {1, KinectAction.RUN },
+        {1, KinectAction.RUN_RIGHT },
         {2, KinectAction.JUMP_UP },
         {3, KinectAction.JUMP_LEFT },
         {4, KinectAction.JUMP_RIGHT },
         {5, KinectAction.STAND_ATTACK },
-        {6, KinectAction.ATTACK },
+        {6, KinectAction.ATTACK_RIGHT },
+        {7, KinectAction.ATTACK_LEFT },
+        {8, KinectAction.RUN_LEFT },
     };
 
     void Start()
@@ -66,7 +68,6 @@ public class GameActionManager : MonoBehaviour
         //Debug.Log("call taking pose");
         while (isStreaming)
         {
-            
             for (int i = 0; i < n; i++)
             {
                 //Debug.Log("hi: " + i);
@@ -159,13 +160,18 @@ public class GameActionManager : MonoBehaviour
     {
         if(gameAction == KinectAction.STAND)
         {
-            playerRB.velocity = Vector3.zero;
+            //playerRB.velocity = Vector3.zero;
             //Debug.Log("standing");
-        } else if(gameAction == KinectAction.RUN)
+        } else if(gameAction == KinectAction.RUN_RIGHT)
         {
-            Debug.Log("run");
+            Debug.Log("run right");
             playerRB.velocity = new Vector3(1, 0, 0) * runSpeed;
-        } 
+        }
+        else if (gameAction == KinectAction.RUN_LEFT)
+        {
+            Debug.Log("run right");
+            playerRB.velocity = new Vector3(-1, 0, 0) * runSpeed;
+        }
         else if (gameAction == KinectAction.JUMP_UP && !isJump)
         {
             Debug.Log("jump up");
@@ -186,13 +192,18 @@ public class GameActionManager : MonoBehaviour
         }
         else if (gameAction == KinectAction.STAND_ATTACK)
         {
-            playerRB.velocity = Vector3.zero;
+            //playerRB.velocity = Vector3.zero;
             Debug.Log("stand attack");
         }
-        else if (gameAction == KinectAction.ATTACK)
+        else if (gameAction == KinectAction.ATTACK_RIGHT)
         {
-            playerRB.velocity = Vector3.zero;
-            Debug.Log("attack");
+            //playerRB.velocity = Vector3.zero;
+            Debug.Log("attack right");
+        }
+        else if (gameAction == KinectAction.ATTACK_LEFT)
+        {
+            //playerRB.velocity = Vector3.zero;
+            Debug.Log("attack left");
         }
         else { 
 

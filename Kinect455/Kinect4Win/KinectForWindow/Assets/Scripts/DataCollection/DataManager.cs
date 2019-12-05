@@ -12,6 +12,7 @@ public class DataManager : MonoBehaviour
 {
     private Dictionary<string, List<float[]>> dicData;
     public InputField inputField;
+    public Dropdown dropdown;
     public Button CollectSinglebutton;
     //public GameObject body;
     public BodySourceView bsv;
@@ -31,6 +32,7 @@ public class DataManager : MonoBehaviour
         {
             OnClickCollectSingleData();
         });
+        
     }
 
     // Update is called once per frame
@@ -44,6 +46,7 @@ public class DataManager : MonoBehaviour
         }
 
         display.text = val;
+        //Debug.Log();
     }
 
     public void OnClickCollectSingleData()
@@ -59,8 +62,8 @@ public class DataManager : MonoBehaviour
             }
 
             float[] data = new float[25 * 3];
-            string label = inputField.text;
-
+            string label = dropdown.options[dropdown.value].text;
+            Debug.Log(label);
             if (label.Equals(string.Empty))
             {
                 Debug.LogError("label cant be empty");
@@ -103,10 +106,10 @@ public class DataManager : MonoBehaviour
 
     private void InitDic()
     {
-        foreach (int action in Enum.GetValues(typeof(GameAction.KinectAction)))
+        foreach (KinectAction action in Enum.GetValues(typeof(GameAction.KinectAction)))
         {
             List<float[]> newList = new List<float[]>();
-            //Debug.Log(action);
+            Debug.Log(action);
             dicData.Add(action + "", newList);
         }
     }
@@ -132,6 +135,7 @@ public class DataManager : MonoBehaviour
         foreach (var item in dicData)
         {
             string label = item.Key;
+            Debug.Log(label);
             List<float[]> list = item.Value;
             foreach(var data in list)
             {

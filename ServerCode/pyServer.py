@@ -23,8 +23,8 @@ model.load_state_dict(torch.load(PATH))
 model.eval()
 
 # map from number to actual pose in str
-label_dict = {0:'STAND', 1:'RUN', 2:'JUMP_UP', 3:'JUMP_LEFT',
-              4:'JUMP_RIGHT', 5:'STAND_ATTACK', 6:'ATTACK'}
+label_dict = {0:'STAND', 1:'RUN_RIGHT', 2:'JUMP_UP', 3:'JUMP_LEFT',
+              4:'JUMP_RIGHT', 5:'STAND_ATTACK', 6:'ATTACK_RIGHT', 7 :'ATTACK_LEFT', 8: 'RUN_LEFT'}
 
 
 @app.route('/')
