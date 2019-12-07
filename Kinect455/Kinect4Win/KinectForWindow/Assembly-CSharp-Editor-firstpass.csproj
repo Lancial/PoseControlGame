@@ -90,6 +90,9 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>/Users/pulkit/CV Project/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>/Users/pulkit/CV Project/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>/Users/pulkit/CV Project/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
@@ -98,9 +101,6 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>/Users/pulkit/CV Project/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>/Users/pulkit/CV Project/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
