@@ -168,6 +168,9 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>C:/NguyenDuong/Programming/Repo/PoseControlGame/PoseControlGame/Kinect455/Kinect4Win/KinectForWindow/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
