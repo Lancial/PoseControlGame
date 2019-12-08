@@ -5,6 +5,9 @@ import time
 from flask import Flask, jsonify, request
 from os import path
 import sys
+import threading
+
+sem = threading.Semaphore()
 
 sys.path.insert(0, "../Classifier/")
 path_directory = path.join(path.dirname(
@@ -52,6 +55,7 @@ def get_inference(skeleton):
 # refer to label dict for pose classes
 @app.route('/get_inference', methods=['POST'])
 def getPose():
+    sem.acquire()
     # skeleton = json.loads(request.get_json).joint_set  # change this name later
     data = request.get_json(force=True)
     skeleton = data["joint_set"]
@@ -59,10 +63,12 @@ def getPose():
         # here call our neural net
         prediction, time = get_inference(skeleton)  # also need processing
         print('Pose predicted: ' + str(label_dict[prediction]) + ' took ' + str(time))
+        sem.release()
         return jsonify({"pose": prediction}), 201  # a place holder for now
     else:
         # return "not a pose" if data format is wrong
         print('Pose predicted: not a pose')
+        sem.release()
         return jsonify({"pose": -1}), 202
 
 

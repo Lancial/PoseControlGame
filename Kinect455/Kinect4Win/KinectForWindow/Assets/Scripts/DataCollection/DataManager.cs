@@ -109,7 +109,7 @@ public class DataManager : MonoBehaviour
         foreach (KinectAction action in Enum.GetValues(typeof(GameAction.KinectAction)))
         {
             List<float[]> newList = new List<float[]>();
-            Debug.Log(action);
+            //Debug.Log(action);
             dicData.Add(action + "", newList);
         }
     }
@@ -135,7 +135,7 @@ public class DataManager : MonoBehaviour
         foreach (var item in dicData)
         {
             string label = item.Key;
-            Debug.Log(label);
+            //Debug.Log(label);
             List<float[]> list = item.Value;
             foreach(var data in list)
             {

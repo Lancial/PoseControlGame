@@ -9,15 +9,13 @@ using GameAction;
 public class GameActionManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject player;
     public DataManager dataManager;
     public KinectAction gameAction;
     
     public static string URL = "http://localhost:5000/get_inference";
-    public const int FRAME_PER_SECOND = 10;
+    public const int FRAME_PER_SECOND = 30;
     
-    private Rigidbody playerRB;
-    private bool isStreaming;
+    public bool isStreaming;
     private IEnumerator stream;
 
 /// /////////////////////////////////
@@ -37,7 +35,6 @@ public class GameActionManager : MonoBehaviour
 
     void Start()
     {
-        playerRB = player.GetComponent<Rigidbody>();
         gameAction = KinectAction.STAND;
         Debug.Log(gameAction);
     }
@@ -148,79 +145,11 @@ public class GameActionManager : MonoBehaviour
     /// /////////////////////////
 
 
-    bool isJump;
-    float jumpElapsed;
-    float jumpReset = 1f;
-
-    public float force = 200;
-    public float forceJump = 200;
-    public float runSpeed = 2f;
     // Update is called once per frame
     void Update()
     {
-        if(gameAction == KinectAction.STAND)
-        {
-            //playerRB.velocity = Vector3.zero;
-            //Debug.Log("standing");
-        } else if(gameAction == KinectAction.RUN_RIGHT)
-        {
-            Debug.Log("run right");
-            playerRB.velocity = new Vector3(1, 0, 0) * runSpeed;
-        }
-        else if (gameAction == KinectAction.RUN_LEFT)
-        {
-            Debug.Log("run right");
-            playerRB.velocity = new Vector3(-1, 0, 0) * runSpeed;
-        }
-        else if (gameAction == KinectAction.JUMP_UP && !isJump)
-        {
-            Debug.Log("jump up");
-            playerRB.AddForce(Vector3.up * force);
-            isJump = true;
-        }
-        else if (gameAction == KinectAction.JUMP_LEFT && !isJump)
-        {
-            Debug.Log("jump left");
-            playerRB.AddForce(new Vector3(-1,1,0) * forceJump);
-            isJump = true;
-        }
-        else if (gameAction == KinectAction.JUMP_RIGHT && !isJump)
-        {
-            Debug.Log("jump right");
-            playerRB.AddForce(new Vector3(1, 1, 0) * forceJump);
-            isJump = true;
-        }
-        else if (gameAction == KinectAction.STAND_ATTACK)
-        {
-            //playerRB.velocity = Vector3.zero;
-            Debug.Log("stand attack");
-        }
-        else if (gameAction == KinectAction.ATTACK_RIGHT)
-        {
-            //playerRB.velocity = Vector3.zero;
-            Debug.Log("attack right");
-        }
-        else if (gameAction == KinectAction.ATTACK_LEFT)
-        {
-            //playerRB.velocity = Vector3.zero;
-            Debug.Log("attack left");
-        }
-        else { 
+        
 
-            //playerRB.velocity = Vector3.zero;
-            Debug.LogError("undefined action");
-        }
-
-        if(isJump)
-        {
-            jumpElapsed += Time.deltaTime;
-        }
-
-        if(jumpElapsed >= jumpReset)
-        {
-            jumpElapsed = 0;
-            isJump = false;
-        }
     }
 }
 
