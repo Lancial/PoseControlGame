@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
         previousGround = groundDetect.IsGrounded;
         moveDirection = 0;
         jump = false;
-        //ActionUpdate();
-        KeyboardUpdate();
+        ActionUpdate();
+        //KeyboardUpdate();
         bool landing = (!previousGround && groundDetect.IsGrounded);
         if (jump && !groundDetect.IsGrounded) //in air
         {
