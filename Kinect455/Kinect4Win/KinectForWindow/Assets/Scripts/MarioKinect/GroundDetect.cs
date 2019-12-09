@@ -23,7 +23,7 @@ public class GroundDetect : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // something happen when jump on enemy
+            collision.gameObject.GetComponent<GooseScript>().alive = false;
         }
     }
 

@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameActionManager actionManager;
+    private SpriteRenderer dawgSprite;
 
     public float speed = 6.0f;
     public float jumpSpeedX = 8.0f;
@@ -18,39 +19,54 @@ public class PlayerController : MonoBehaviour
     private float moveDirection = 0;
 
     private bool previousGround;
-    private bool prevJumped;
+    private bool prevJumped = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         groundDetect = GetComponentInChildren<GroundDetect>();
+        dawgSprite = GetComponent<SpriteRenderer>();
     }
-
+    private float jumpTimer = 0;
     private void FixedUpdate()
     {
         previousGround = groundDetect.IsGrounded;
         moveDirection = 0;
         jump = false;
-        ActionUpdate();
-        //KeyboardUpdate();
+        //ActionUpdate();
+        KeyboardUpdate();
         bool landing = (!previousGround && groundDetect.IsGrounded);
         if (jump && !groundDetect.IsGrounded) //in air
         {
-
+            prevJumped = false;
         }
         else if (landing)
         {
             rb.velocity = Vector2.zero;
+            prevJumped = false;
         }
-        else if (jump && groundDetect.IsGrounded) // jumping
+        else if (jump && groundDetect.IsGrounded && !prevJumped) // jumping
         {
             rb.AddForce(new Vector2(jumpSpeedX * jumpVector.x, jumpSpeedY * jumpVector.y));
+            prevJumped = true;
+            jumpTimer = 2;
         }
 
+        if (jumpTimer > 0) {
+            jumpTimer -= Time.deltaTime;
+        } else {
+            prevJumped = false;
+        }
 
         if (!jump && groundDetect.IsGrounded) // moving
         {
             transform.Translate(new Vector2(speed * moveDirection * Time.deltaTime,0));
-            rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+            //rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+        }
+
+        if (rb.velocity.x < 0 || moveDirection < 0) {
+            dawgSprite.flipX = true;
+        } else if (rb.velocity.x > 0 || moveDirection > 0) {
+            dawgSprite.flipX = false;
         }
     }
 
