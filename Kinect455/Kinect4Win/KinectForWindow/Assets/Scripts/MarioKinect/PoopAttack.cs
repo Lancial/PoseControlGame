@@ -7,10 +7,10 @@ public class PoopAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        pooplife = 1f;
     }
     private bool IsGrounded;
-    public float pooplife = 2.1f;
+    public float pooplife = 3f;
     // Update is called once per frame
     void Update()
     {

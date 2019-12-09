@@ -69,6 +69,7 @@
      <Compile Include="Assets\Scripts\Kinect\MultiSourceManager.cs" />
      <Compile Include="Assets\Scripts\MarioKinect\AutoMovement.cs" />
      <Compile Include="Assets\Scripts\MarioKinect\BackgroundSwitcher.cs" />
+     <Compile Include="Assets\Scripts\MarioKinect\BarkScript.cs" />
      <Compile Include="Assets\Scripts\MarioKinect\DetectWall.cs" />
      <Compile Include="Assets\Scripts\MarioKinect\GameActionManager.cs" />
      <Compile Include="Assets\Scripts\MarioKinect\GooseScript.cs" />
@@ -76,9 +77,9 @@
      <Compile Include="Assets\Scripts\MarioKinect\KinectAction.cs" />
      <Compile Include="Assets\Scripts\MarioKinect\PlayerController.cs" />
      <Compile Include="Assets\Scripts\MarioKinect\PoopAttack.cs" />
+     <Compile Include="Assets\Scripts\MarioKinect\TextScript.cs" />
      <Compile Include="Assets\Scripts\TestGame\Bubble.cs" />
      <Compile Include="Assets\Scripts\TestGame\Hand.cs" />
-     <Compile Include="Assets\scrip.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float forceX;
+    public float forceY;
     public int health = 3;
     public GameActionManager actionManager;
     private SpriteRenderer dawgSprite;
@@ -15,20 +17,30 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private GroundDetect groundDetect;
+    private BarkScript barkScript;
 
     private Vector3 jumpVector = Vector3.up;
     private float moveDirection = 0;
 
+    private Vector3 forward;
+    private Vector3 backward;
+    private AudioSource audioData;
     private bool previousGround;
     private bool prevJumped = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioData = GetComponent<AudioSource>();
         groundDetect = GetComponentInChildren<GroundDetect>();
+        barkScript = GetComponentInChildren<BarkScript>();
         dawgSprite = GetComponent<SpriteRenderer>();
+        forward = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+        backward = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
     }
     private float jumpTimer = 0;
     public float immunity = 0;
+    private float barkTimer = 0;
+    private bool attack;
     private void FixedUpdate()
     {
         if (immunity > 0) {
@@ -62,6 +74,17 @@ public class PlayerController : MonoBehaviour
             prevJumped = false;
         }
 
+        if (barkTimer > 0) {
+            if (audioData.isPlaying) {
+                barkTimer -= Time.deltaTime;
+            } else {
+                audioData.Play();
+            }
+        } else if (barkTimer < 0) {
+            barkTimer = 0;
+            audioData.Stop();
+        }
+
         if (!jump && groundDetect.IsGrounded) // moving
         {
             transform.Translate(new Vector2(speed * moveDirection * Time.deltaTime,0));
@@ -69,9 +92,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if (rb.velocity.x < 0 || moveDirection < 0) {
-            dawgSprite.flipX = true;
+            gameObject.transform.localScale = backward;
         } else if (rb.velocity.x > 0 || moveDirection > 0) {
-            dawgSprite.flipX = false;
+            gameObject.transform.localScale = forward;
         }
     }
 
@@ -216,16 +239,19 @@ public class PlayerController : MonoBehaviour
         {
             //playerRB.velocity = Vector3.zero;
             Debug.Log("stand attack");
+            bark();
         }
         else if (Input.GetKey(KeyCode.C))
         {
             //playerRB.velocity = Vector3.zero;
             Debug.Log("attack right");
+            barkRight();
         }
         else if (Input.GetKey(KeyCode.Z))
         {
             //playerRB.velocity = Vector3.zero;
             Debug.Log("attack left");
+            barkLeft();
         }
         else
         {
@@ -243,5 +269,25 @@ public class PlayerController : MonoBehaviour
             immunity = 3;
             rb.AddForce(new Vector2(0, jumpSpeedY));
         }
+    }
+
+    private void bark() {
+        for (int i = 0; i < barkScript.enemies.Count; i++) {
+            GameObject o = barkScript.enemies[i];
+            o.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            o.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceX,forceY));
+            barkScript.enemies.Remove(o);
+        }
+        barkTimer = 2;
+    }
+
+    private void barkLeft() {
+        gameObject.transform.localScale = backward;
+        bark();
+    }
+
+    private void barkRight() {
+        gameObject.transform.localScale = forward;
+        bark();
     }
 }

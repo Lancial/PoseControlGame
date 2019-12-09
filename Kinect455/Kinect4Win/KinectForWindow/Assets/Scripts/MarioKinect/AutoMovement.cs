@@ -28,13 +28,14 @@ public class AutoMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<Transform>().position.x < startPos.x - range ||
-            GetComponent<Transform>().position.x > startPos.x + range) {
-                flipBird();
-            }
-        float distance = (husky.transform.position.x - transform.position.x);
-        if (distance < 0) {
-            distance = -distance;
+        Vector3 pos = GetComponent<Transform>().position;
+        if (GetComponent<Transform>().position.x < startPos.x - range) {
+            GetComponent<Transform>().position = new Vector3(startPos.x - range, pos.y, pos.z);
+            flipBird();
+        } 
+        if (GetComponent<Transform>().position.x > startPos.x + range) {
+            GetComponent<Transform>().position = new Vector3(startPos.x + range, pos.y, pos.z);
+            flipBird();
         }
 
         if (poopTimer <= 0) {
@@ -46,9 +47,8 @@ public class AutoMovement : MonoBehaviour
     }
 
     private void flipBird() {
-        isRightDirection = !isRightDirection;
-        speed *= isRightDirection ? 1 : -1;
-        spriteRenderer.flipX = !spriteRenderer.flipX;
+        speed *= -1;
+        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
     }
 
     private void poop()

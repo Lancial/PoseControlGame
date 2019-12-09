@@ -54,6 +54,7 @@ public class GooseScript : MonoBehaviour
     private void flipBird() {
         Debug.Log("flipping");
         moveDirection *= -1;
-        spriteRenderer.flipX = !spriteRenderer.flipX ;
+        //spriteRenderer.flipX = !spriteRenderer.flipX ;
+        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
     }
 }
