@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
         previousGround = groundDetect.IsGrounded;
         moveDirection = 0;
         jump = false;
-        //ActionUpdate();
-        KeyboardUpdate();
+        ActionUpdate();
+        //KeyboardUpdate();
         bool landing = (!previousGround && groundDetect.IsGrounded);
         if (jump && !groundDetect.IsGrounded) //in air
         {
@@ -180,16 +180,19 @@ public class PlayerController : MonoBehaviour
         else if (actionManager.gameAction == KinectAction.STAND_ATTACK)
         {
             //playerRB.velocity = Vector3.zero;
+            bark();
             Debug.Log("stand attack");
         }
         else if (actionManager.gameAction == KinectAction.ATTACK_RIGHT)
         {
             //playerRB.velocity = Vector3.zero;
+            barkRight();
             Debug.Log("attack right");
         }
         else if (actionManager.gameAction == KinectAction.ATTACK_LEFT)
         {
             //playerRB.velocity = Vector3.zero;
+            barkLeft();
             Debug.Log("attack left");
         }
         else
