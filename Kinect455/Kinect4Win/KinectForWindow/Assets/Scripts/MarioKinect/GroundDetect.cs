@@ -17,19 +17,19 @@ public class GroundDetect : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             IsGrounded = true;
         }
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && !IsGrounded)
         {
-            // something happen when jump on enemy
+            collision.gameObject.GetComponent<GooseScript>().alive = false;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             IsGrounded = false;
         }

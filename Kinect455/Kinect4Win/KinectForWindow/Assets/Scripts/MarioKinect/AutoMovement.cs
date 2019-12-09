@@ -4,45 +4,60 @@ using UnityEngine;
 
 public class AutoMovement : MonoBehaviour
 {
-    public float timeMax;
-    public bool isRightDirection;
-
+    public GameObject poo;
+    public GameObject husky;
+    public float poopSpeed;
     public float speed = 5f;
+    public float range = 10f;
+
+    private bool isRightDirection;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private float currentTimeMax;
     private float timeElapsed;
-
+    private Vector3 startPos;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        GenerateNewRandomRange();
+        startPos = GetComponent<Transform>().position;
     }
 
+    private float poopTimer = 0;
     // Update is called once per frame
     void Update()
     {
-        if(timeElapsed < currentTimeMax)
-        {
-            timeElapsed += Time.deltaTime;
-        } else
-        {
-            GenerateNewRandomRange();
-            timeElapsed = 0;
+        Vector3 pos = GetComponent<Transform>().position;
+        if (GetComponent<Transform>().position.x < startPos.x - range) {
+            GetComponent<Transform>().position = new Vector3(startPos.x - range, pos.y, pos.z);
+            flipBird();
+        } 
+        if (GetComponent<Transform>().position.x > startPos.x + range) {
+            GetComponent<Transform>().position = new Vector3(startPos.x + range, pos.y, pos.z);
+            flipBird();
         }
 
+        if (poopTimer <= 0) {
+            poop();
+            poopTimer = 2;
+        }
+        poopTimer -= Time.deltaTime;
         rb.velocity = new Vector2(speed, rb.velocity.y);
     }
 
-    private void GenerateNewRandomRange()
+    private void flipBird() {
+        speed *= -1;
+        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+    }
+
+    private void poop()
     {
-        currentTimeMax = Random.Range(0, timeMax);
-        isRightDirection = !isRightDirection;
-        speed *= isRightDirection ? 1 : -1;
-        spriteRenderer.flipX = !isRightDirection;
+        Debug.Log("pooping");
+        Vector3 bird = GetComponent<Transform>().position;
+        Vector3 drop = new Vector3(bird.x, bird.y - 1, bird.z);
+        GameObject clone = (GameObject)Instantiate (poo, drop, Quaternion.identity);
+        clone.GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, -1 * poopSpeed);
     }
     
 }
