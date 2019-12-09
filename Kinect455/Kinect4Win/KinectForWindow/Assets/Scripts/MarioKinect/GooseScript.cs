@@ -8,7 +8,7 @@ public class GooseScript : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
 
-    private Animator anim;
+    private DetectWall wall;
 
     public float regular = 5f;
     public float faster = 7f;
@@ -22,8 +22,7 @@ public class GooseScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-         anim = GetComponent<Animator>();
-         anim.enabled = false;
+        wall = GetComponentInChildren<DetectWall>();
     }
 
     private float attackTimer = 0;
@@ -32,33 +31,16 @@ public class GooseScript : MonoBehaviour
     void FixedUpdate()
     {
         checkLife();
-        if (attack && attackTimer <= 0) {
-            if (husky.transform.position.x > transform.position.x) {
-                moveDirection = 1;
-                spriteRenderer.flipX = true;
-            } else {
-                moveDirection = -1;
-                spriteRenderer.flipX = false;
-            }
-            attackTimer = 2;
-        } else {
-            attackTimer -= Time.deltaTime;
-        }
         float distance = (husky.transform.position.x - transform.position.x);
         if (distance < 0) {
             distance = -distance;
         }
-        float speed = regular;
-        if (distance >=5 && distance < 20) {
-            attack = true;
-        } else if (distance < 5) {
-            spriteRenderer.color = Color.red;
-            speed = faster;
-        } 
-        if (distance >= 5) 
-        {
-            speed = regular;
+        if (wall.flip) {
+            flipBird();
+            //wall.flip = false;
         }
+
+        float speed = regular;
         transform.Translate(new Vector2(speed * moveDirection * Time.deltaTime,0));
     }
 
@@ -67,5 +49,11 @@ public class GooseScript : MonoBehaviour
             Debug.Log("death");
             Destroy(gameObject);
         }
+    }
+
+    private void flipBird() {
+        Debug.Log("flipping");
+        moveDirection *= -1;
+        spriteRenderer.flipX = !spriteRenderer.flipX ;
     }
 }

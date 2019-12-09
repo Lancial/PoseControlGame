@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public int health = 3;
     public GameActionManager actionManager;
     private SpriteRenderer dawgSprite;
 
@@ -27,8 +28,12 @@ public class PlayerController : MonoBehaviour
         dawgSprite = GetComponent<SpriteRenderer>();
     }
     private float jumpTimer = 0;
+    public float immunity = 0;
     private void FixedUpdate()
     {
+        if (immunity > 0) {
+            immunity -= Time.deltaTime;
+        }
         previousGround = groundDetect.IsGrounded;
         moveDirection = 0;
         jump = false;
@@ -225,8 +230,18 @@ public class PlayerController : MonoBehaviour
         else
         {
             //playerRB.velocity = Vector3.zero;
-            Debug.LogError("undefined action");
+            //Debug.LogError("undefined action");
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && immunity <= 0)
+        {
+            health--;
+            Debug.Log(health);
+            immunity = 3;
+            rb.AddForce(new Vector2(0, jumpSpeedY));
+        }
+    }
 }
