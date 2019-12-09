@@ -37,7 +37,7 @@ public class AutoMovement : MonoBehaviour
             distance = -distance;
         }
 
-        if (distance <= 10 && poopTimer <= 0) {
+        if (poopTimer <= 0) {
             poop();
             poopTimer = 2;
         }

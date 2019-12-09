@@ -9,10 +9,23 @@ public class PoopAttack : MonoBehaviour
     {
         
     }
-
+    private bool IsGrounded;
+    public float pooplife = 2.1f;
     // Update is called once per frame
     void Update()
     {
-        
+        if (IsGrounded) {
+            pooplife -= Time.deltaTime;
+        }
+        if (pooplife <= 0) {
+            Destroy(gameObject);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            IsGrounded = true;
+        }
     }
 }
